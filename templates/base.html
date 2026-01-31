@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Pink Lashes{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+{% include 'includes/header.html' %}
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+{% include 'includes/footer.html' %}
+
+</body>
+</html>
