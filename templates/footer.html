@@ -1,0 +1,73 @@
+{% load static %}
+
+<footer class="foot">
+  <div class="where">
+    <div class="wbox">
+      <h3 class="wtitle">Где мы находимся?</h3>
+
+      <div class="witem">
+        <span class="wico">📍</span>
+        <div>
+          <div class="wname">Наш Адрес</div>
+          <div class="wtext">Большой Сухаревский переулок, 25с2 Москва</div>
+        </div>
+      </div>
+
+      <div class="witem">
+        <span class="wico">📞</span>
+        <div>
+          <div class="wname">Телефон</div>
+          <div class="wtext">+996 706 546 483</div>
+        </div>
+      </div>
+
+      <div class="witem">
+        <span class="wico">✉️</span>
+        <div>
+          <div class="wname">Эл. адрес</div>
+          <div class="wtext">office@prolab.academy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=37.61%2C55.76%2C37.66%2C55.78&layer=mapnik"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="fcenter">
+    <div class="flogo">
+      <img src="{% static 'svg/logo.svg' %}" alt="Pink Lashes">
+    </div>
+
+    <nav class="fnav">
+      <a href="{% url 'home' %}">Главная</a>
+      <a href="{% url 'aboutus' %}">О нас</a>
+      <a href="{% url 'service' %}">Услуги</a>
+      <a href="{% url 'masters' %}">Мастера</a>
+    </nav>
+
+    <div class="frow">
+      <div class="fsoc">
+        <a href="#"><img src="{% static 'svg/instagram.svg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'svg/telegramm.svg' %}" alt=""></a>
+        <a href="#"><img src="{% static 'svg/whatsapp.svg' %}" alt=""></a>
+      </div>
+
+      <select class="lang">
+        <option>Ru</option>
+        <option>En</option>
+      </select>
+    </div>
+
+    <div class="copy">
+      © 2024 Все права защищены — Создание сайта PROlab Agency.
+    </div>
+  </div>
+</footer>

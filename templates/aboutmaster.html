@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="sec md">
+  <div class="md-wrap">
+    <div class="md-img">
+        <img src="{{ master.img.url }}" alt="{{ master.name }}">
+    </div>
+
+    <div class="md-info">
+      <div class="md-top">МАСТЕР</div>
+
+      <h1 class="md-name">Мастер {{ master.name }}</h1>
+
+      <div class="md-exp">Опыт работы — {{ master.experience }}</div>
+
+      <div class="md-tags">
+        {% for s in master.services.all %}
+          <span class="tag tag--on">{{ s.title }}</span>
+        {% endfor %}
+      </div>
+
+      <p class="md-text">
+        {{ master.description }}
+      </p>
+
+      <div class="md-soc">
+        {% if master.instagram %}<a class="soc" href="{{ master.instagram }}">IG</a>{% endif %}
+        {% if master.telegramm %}<a class="soc" href="{{ master.telegramm }}">TG</a>{% endif %}
+        {% if master.tiktok %}<a class="soc" href="{{ master.tiktok }}">TT</a>{% endif %}
+        {% if master.whatsapp %}<a class="soc" href="{{ master.whatsapp }}">WA</a>{% endif %}
+        {% if master.youtube %}<a class="soc" href="{{ master.youtube }}">YT</a>{% endif %}
+      </div>
+
+      <div class="md-list">
+        <div class="md-item">
+          <div class="num">01</div>
+          <div>
+            <div class="it-title">Мастер года</div>
+            <div class="it-text">Признан за выдающиеся достижения.</div>
+          </div>
+        </div>
+
+        <div class="md-item">
+          <div class="num">02</div>
+          <div>
+            <div class="it-title"Мастер года</div>
+            <div class="it-text">Признан за выдающиеся достижения.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec gallery">
+  <h2 class="h2">Фотогалерея работ</h2>
+
+  <div class="tabs">
+  {% for t in typesofservice %}
+    <a
+      href="?type={{ t.id }}"
+      class="tab {% if active_type == t.id %}tab--active{% endif %}"
+    >
+      {{ t.name }}
+    </a>
+  {% endfor %}
+</div>
+
+  <div class="ggrid">
+    {% for g in galleries %}
+      <div class="gcard">
+        {% if g.img %}
+          <img src="{{ g.img.url }}" alt="{{ g.name }}">
+        {% endif %}
+        <p>{{ g.name }}</p>
+      </div>
+    {% empty %}
+      <p style="text-align:center;">Нет работ для этого сервиса</p>
+    {% endfor %}
+  </div>
+</section>
+
+
+<section class="rev">
+  <h2 class="rh">Отзывы клиентов</h2>
+
+  <div class="rgrid">
+    {% for r in reviews|slice:":4" %}
+      <article class="rcard">
+        <div class="rquote">“</div>
+
+        <p class="rtext">{{ r.comment|truncatechars:170 }}</p>
+
+        <div class="rstars">
+          {% if r.score >= 1 %}★{% else %}☆{% endif %}
+          {% if r.score >= 2 %}★{% else %}☆{% endif %}
+          {% if r.score >= 3 %}★{% else %}☆{% endif %}
+          {% if r.score >= 4 %}★{% else %}☆{% endif %}
+          {% if r.score >= 5 %}★{% else %}☆{% endif %}
+        </div>
+
+        <div class="rbot">
+          <div class="rava">
+            {% if r.master.img %}
+              <img src="{{ r.master.img.url }}" alt="{{ r.master.name }}">
+            {% endif %}
+          </div>
+          <div class="rwho">
+            <div class="rname">Мастер {{ r.master.name }}</div>
+            <div class="rrole">{{ r.master.get_position_display }}</div>
+          </div>
+        </div>
+      </article>
+    {% empty %}
+      <p style="text-align:center;">Отзывов пока нет</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock content %}

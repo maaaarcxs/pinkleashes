@@ -18,7 +18,7 @@ class ServiceType(models.Model):
 
 class Service(models.Model):
     image = ResizedImageField(size=[800, 600], crop=['middle', 'center'], upload_to='gallery/',
-                              verbose_name='Фото', null=True, blank=True, quality=90)
+                            verbose_name='Фото', null=True, blank=True, quality=90)
     title = models.CharField(verbose_name="Название", max_length=80)
     types = models.ForeignKey(ServiceType, verbose_name="тип услуги", on_delete=models.CASCADE)
 

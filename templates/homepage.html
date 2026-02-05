@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="head"></section>
+
+<section class="sec services">
+  <h2 class="title">Какие услуги мы предлагаем</h2>
+
+  <div class="service-list">
+  {% for t in typesofservice|slice:":3" %}
+    <a href="{% url 'service' %}?type={{ t.id }}" class="service">
+      <img src="{{ t.img.url }}" alt="{{ t.name }}">
+      <p>{{ t.name }}</p>
+    </a>
+  {% endfor %}
+</div>
+
+</section>
+
+<section class="sec masters">
+  <h2 class="h2">Наши мастера</h2>
+
+  <div class="tabs">
+  {% for t in typesofservice %}
+    <a
+      href="?type={{ t.id }}"
+      class="tab {% if active_type == t.id %}tab--active{% endif %}"
+    >
+      {{ t.name }}
+    </a>
+  {% endfor %}
+</div>
+
+
+  <div class="mgrid">
+  {% for m in masters %}
+    <article class="mcard">
+      <div class="mimg">
+        {% if m.img %}
+          <img src="{{ m.img.url }}" alt="{{ m.name }}">
+        {% endif %}
+      </div>
+
+      <div class="minfo">
+        <h3 class="mname">{{ m.name }}</h3>
+        <div class="mpos">{{ m.get_position_display }}</div>
+        <p class="mdesc">{{ m.description|truncatechars:120 }}</p>
+        <a class="mbtn" href="{% url 'aboutmaster' m.id %}">Подробнее</a>
+      </div>
+    </article>
+  {% empty %}
+    <p style="text-align:center;">Нет мастеров для этого сервиса</p>
+  {% endfor %}
+</div>
+
+</section>
+
+<section class="sec gallery">
+  <h2 class="h2">Фотогалерея работ</h2>
+
+  <div class="tabs">
+  {% for t in typesofservice %}
+    <a
+      href="?type={{ t.id }}"
+      class="tab {% if active_type == t.id %}tab--active{% endif %}"
+    >
+      {{ t.name }}
+    </a>
+  {% endfor %}
+</div>
+
+  <div class="ggrid">
+    {% for g in galleries %}
+      <div class="gcard">
+        {% if g.img %}
+          <img src="{{ g.img.url }}" alt="{{ g.name }}">
+        {% endif %}
+        <p>{{ g.name }}</p>
+      </div>
+    {% empty %}
+      <p style="text-align:center;">Нет работ для этого сервиса</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="rev">
+  <h2 class="rh">Отзывы клиентов</h2>
+
+  <div class="rgrid">
+    {% for r in reviews|slice:":4" %}
+      <article class="rcard">
+        <div class="rquote">“</div>
+
+        <p class="rtext">{{ r.comment|truncatechars:170 }}</p>
+
+        <div class="rstars">
+          {% if r.score >= 1 %}★{% else %}☆{% endif %}
+          {% if r.score >= 2 %}★{% else %}☆{% endif %}
+          {% if r.score >= 3 %}★{% else %}☆{% endif %}
+          {% if r.score >= 4 %}★{% else %}☆{% endif %}
+          {% if r.score >= 5 %}★{% else %}☆{% endif %}
+        </div>
+
+        <div class="rbot">
+          <div class="rava">
+            {% if r.master.img %}
+              <img src="{{ r.master.img.url }}" alt="{{ r.master.name }}">
+            {% endif %}
+          </div>
+          <div class="rwho">
+            <div class="rname">Мастер {{ r.master.name }}</div>
+            <div class="rrole">{{ r.master.get_position_display }}</div>
+          </div>
+        </div>
+      </article>
+    {% empty %}
+      <p style="text-align:center;">Отзывов пока нет</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock content %}

@@ -33,7 +33,11 @@ INSTALLED_APPS = [
     'main',
     'phonenumber_field',
     'django_filters',
-    'django_resized'
+    'django_resized',
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework.authtoken',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +100,23 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 12,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+}
 
 
 # Internationalization

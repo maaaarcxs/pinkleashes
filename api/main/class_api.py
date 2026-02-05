@@ -1,0 +1,55 @@
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, GenericViewSet
+from rest_framework.mixins import ListModelMixin, CreateModelMixin
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from main.models import ServiceType, Service, Master, Gallery, Review, Appointment
+from .serializers import ServiceTypeSerializers, ServiceSerializers, MasterSerializers, GallerySerializers, ReviewSerializers, AppointmentSerializers
+
+
+class ServiceTypeViewSet(ReadOnlyModelViewSet):
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeSerializers
+    filter_backends = [DjangoFilterBackend]
+
+
+    def get_permissions(self):
+        return [AllowAny()]
+    
+
+class ServiceViewSet(ReadOnlyModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializers
+    filter_backends = [DjangoFilterBackend]
+
+    def get_permissions(self):
+        return [AllowAny()]
+    
+
+class MasterViewSet(ReadOnlyModelViewSet):
+    queryset = Master.objects.all()
+    serializer_class = MasterSerializers
+    filter_backends = [DjangoFilterBackend]
+
+    def get_permissions(self):
+        return [AllowAny()]
+    
+
+class GalleryViewSet(ReadOnlyModelViewSet):
+    queryset = Gallery.objects.all()
+    serializer_class = GallerySerializers
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [AllowAny()]
+    
+
+class ReviewViewSet(CreateModelMixin, GenericViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializers
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [IsAuthenticated]
+    
+
+class AppointmentViewSet(GenericViewSet, CreateModelMixin):
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializers
+    filter_backends = [DjangoFilterBackend]
+    permission_classes = [IsAuthenticated]

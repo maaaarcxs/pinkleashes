@@ -1,20 +1,60 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Pink Lashes{% endblock %}</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+  </head>
+  <body>
+   
+<div id="appointmentModal" class="modal">
+  <a href="#" class="modal-bg"></a>
 
-{% include 'includes/header.html' %}
+  <div class="modal-box">
+    <a href="#" class="modal-close">×</a>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+    <h2 class="modal-title">Хочу записаться!</h2>
+    <p class="modal-sub">
+      Meet Sarah, a visionary hairstylist with a passion for beauty and a heart full of dreams.
+    </p>
 
-{% include 'includes/footer.html' %}
+    <form method="post" action="{% url 'signup' %}" class="modal-form">
+      {% csrf_token %}
 
-</body>
+      <div class="row">
+        <p>Имя{{ appointment_form.name }}</p>
+        <p>Номер телефона{{ appointment_form.phone_number }}</p>
+      </div>
+
+      <div class="row">
+        <p>Услуги{{ appointment_form.service }}</p>
+        <p>Мастера{{ appointment_form.master }}</p>
+      </div>
+
+      <div class="row">
+        <p>Дата {{ appointment_form.date }}</p>
+        <p>Время {{ appointment_form.time }}</p>
+      </div>
+
+      <p>Комментарий{{ appointment_form.comment }}</p>
+
+      <div class="actions">
+        <a href="#" class="btn cancel">Отмена</a>
+        <button type="submit" class="btn submit">Забронировать</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+    {% include 'components/navbar.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'components/footer.html' %}
+  </body>
 </html>

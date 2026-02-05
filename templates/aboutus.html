@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class='head'>
+</section>
+
+<section class="story sec">
+  <div class="dots">
+    <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><span class="d d4"></span>
+  </div>
+
+  <div class="wrap">
+    <div class="st-top">Наша история</div>
+
+    <p class="st-text">
+    Since 2012 in a charming Hawaii Town, Serene Beauty emerged as a haven for beauty and tranquility. Founded by Sarah, a passionate hairstylist, the salon's simple yet profound vision was to enhance natural beauty while providing a peaceful escape.
+
+With time, Serene Beauty's dedicated team grew, offering a range of services from esthetics to makeup. It became a beloved part of the community, known for its serene ambiance and commitment to giving back through charity events.</p>
+
+    <div class="st-photos">
+      <div class="ph"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80" alt=""></div>
+      <div class="ph"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80" alt=""></div>
+      <div class="ph"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80" alt=""></div>
+    </div>
+  </div>
+</section>
+
+<section class="found sec">
+  <div class="wrap fgrid">
+    <div class="fimg">
+      <img src="static/images/photo_2026-01-29_18-55-57.jpg" alt="">
+    </div>
+
+    <div class="finfo">
+      <div class="ftag">Основатель</div>
+      <h2 class="fname">Маркусбек Мораэс</h2>
+
+      <p class="fdesc">
+        Мастер Маркусбек имеет колоссальный опыт во всех направлениях бьюти-сферы, через него прошло более тысячи людей и у всех отличные отзывы.
+      </p>
+
+      <div class="flist">
+        <div class="fit">
+          <div class="num">01</div>
+          <div class="txt">
+            <div class="t">Мастер года:</div>
+            <div class="s">Маркусбек.</div>
+          </div>
+        </div>
+
+        <div class="fit">
+          <div class="num">02</div>
+          <div class="txt">
+            <div class="t">Мастер года:</div>
+            <div class="s">Маркусбек.</div>
+          </div>
+        </div>
+
+        <div class="fit">
+          <div class="num">03</div>
+          <div class="txt">
+            <div class="t">Мастер года:</div>
+            <div class="s">Маркусбек.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="sec masters">
+  <h2 class="h2">Наши мастера</h2>
+
+  <div class="tabs">
+  {% for t in typesofservice %}
+    <a
+      href="?type={{ t.id }}"
+      class="tab {% if active_type == t.id %}tab--active{% endif %}"
+    >
+      {{ t.name }}
+    </a>
+  {% endfor %}
+</div>
+
+
+  <div class="mgrid">
+  {% for m in masters %}
+    <article class="mcard">
+      <div class="mimg">
+        {% if m.img %}
+          <img src="{{ m.img.url }}" alt="{{ m.name }}">
+        {% endif %}
+      </div>
+
+      <div class="minfo">
+        <h3 class="mname">{{ m.name }}</h3>
+        <div class="mpos">{{ m.get_position_display }}</div>
+        <p class="mdesc">{{ m.description|truncatechars:120 }}</p>
+        <a class="mbtn" href="{% url 'aboutmaster' m.id %}">Подробнее</a>
+      </div>
+    </article>
+  {% empty %}
+    <p style="text-align:center;">Нет мастеров для этого сервиса</p>
+  {% endfor %}
+</div>
+
+</section>
+
+
+{% endblock content %}

@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import FormView
-from . models import Service, Master, Gallery, ServiceType, Review, Appointment
+from . models import Service, Master, Gallery, ServiceType, Review
 from . forms import AppointmentMForm, ReviewMForm
 
 
 class HomepageView(TemplateView):
-    template_name = ""
+    template_name = "homepage.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -19,7 +19,7 @@ class HomepageView(TemplateView):
     
 
 class AboutUsPageView(TemplateView):
-    template_name = ""
+    template_name = "aboutus.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,7 +30,7 @@ class AboutUsPageView(TemplateView):
 
 class ServiceView(ListView):
     model = Service
-    template_name = ""
+    template_name = "service.html"
     context_object_name = "services"
     
     def get_context_data(self, **kwargs):
@@ -41,12 +41,12 @@ class ServiceView(ListView):
 
 class MastersView(ListView):
     model = Master
-    template_name = ""
+    template_name = "masters.html"
     context_object_name = "masters"
     
 
 class MasterDetailView(TemplateView):
-    template_name = ""
+    template_name = "aboutmaster.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,19 +59,9 @@ class MasterDetailView(TemplateView):
     
 
 class AppointmentView(FormView):
-    template_name = ""
+    template_name = "base.html"
     form_class = AppointmentMForm
     success_url = reverse_lazy("homepage")
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
-    
-
-class ReviewFormView(FormView):
-    template_name = ""
-    form_class = ReviewMForm
-    success_url = reverse_lazy("")
 
     def form_valid(self, form):
         form.save()

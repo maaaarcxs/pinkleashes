@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="wrap">
+
+  {% for t in servicetypes %}
+    {% if t.services.all %}
+      <section class="type-block">
+        <h2 class="type-title">{{ t.name }}</h2>
+
+        <div class="svc-grid">
+          {% for s in t.services.all %}
+            <article class="svc-card">
+              <div class="svc-img">
+                {% if t.img %}
+                  <img src="{{ t.img.url }}" alt="{{ s.title }}">
+                {% else %}
+                  <div class="svc-img-empty"></div>
+                {% endif %}
+              </div>
+
+              <div class="svc-body">
+                <div class="svc-name">{{ s.title }}</div>
+                <div class="svc-price">от {{ s.price }} сом</div>
+
+                <div class="svc-masters">
+                  {% for m in s.masters.all|slice:":2" %}
+                    <span class="chip">{{ m.name }}</span>
+                  {% empty %}
+                    <span class="chip chip--muted">нет мастеров</span>
+                  {% endfor %}
+                </div>
+
+                <div class="svc-actions">
+                  <a class="btn btn--ghost" href="{% url 'service' %}#appointmentModal">Записаться</a>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+
+</section>
+
+{% endblock %}

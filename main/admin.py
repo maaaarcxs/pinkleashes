@@ -28,7 +28,7 @@ class MasterAdmin(admin.ModelAdmin):
     ordering = ("position", "experience")
     fieldsets = (
         ("Основное", {
-            "fields": ("name", "position", "experience")
+            "fields": ("name", "position", "experience", "photo")
         }),
         ("Дополнительное", {
             "fields": ("services", "description", "media", "link"),
