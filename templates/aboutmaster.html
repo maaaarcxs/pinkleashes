@@ -27,11 +27,7 @@
       </p>
 
       <div class="md-soc">
-        {% if master.instagram %}<a class="soc" href="{{ master.instagram }}">IG</a>{% endif %}
-        {% if master.telegramm %}<a class="soc" href="{{ master.telegramm }}">TG</a>{% endif %}
-        {% if master.tiktok %}<a class="soc" href="{{ master.tiktok }}">TT</a>{% endif %}
-        {% if master.whatsapp %}<a class="soc" href="{{ master.whatsapp }}">WA</a>{% endif %}
-        {% if master.youtube %}<a class="soc" href="{{ master.youtube }}">YT</a>{% endif %}
+        {% if socialmedia.master %}<a class="soc" href="{{ socialmedia.link }}">IG</a>{% endif %}
       </div>
 
       <div class="md-list">
@@ -59,23 +55,19 @@
   <h2 class="h2">Фотогалерея работ</h2>
 
   <div class="tabs">
-  {% for t in typesofservice %}
-    <a
-      href="?type={{ t.id }}"
-      class="tab {% if active_type == t.id %}tab--active{% endif %}"
-    >
-      {{ t.name }}
+  {% for t in servicetype %}
+      {{ t.title }}
     </a>
   {% endfor %}
 </div>
 
   <div class="ggrid">
-    {% for g in galleries %}
+    {% for g in gallery %}
       <div class="gcard">
         {% if g.img %}
-          <img src="{{ g.img.url }}" alt="{{ g.name }}">
+          <img src="{{ g.image.url }}" alt="{{ g.title }}">
         {% endif %}
-        <p>{{ g.name }}</p>
+        <p>{{ g.title }}</p>
       </div>
     {% empty %}
       <p style="text-align:center;">Нет работ для этого сервиса</p>
@@ -95,17 +87,17 @@
         <p class="rtext">{{ r.comment|truncatechars:170 }}</p>
 
         <div class="rstars">
-          {% if r.score >= 1 %}★{% else %}☆{% endif %}
-          {% if r.score >= 2 %}★{% else %}☆{% endif %}
-          {% if r.score >= 3 %}★{% else %}☆{% endif %}
-          {% if r.score >= 4 %}★{% else %}☆{% endif %}
-          {% if r.score >= 5 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 1 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 2 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 3 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 4 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 5 %}★{% else %}☆{% endif %}
         </div>
 
         <div class="rbot">
           <div class="rava">
-            {% if r.master.img %}
-              <img src="{{ r.master.img.url }}" alt="{{ r.master.name }}">
+            {% if r.master.photo %}
+              <img src="{{ r.master.photo.url }}" alt="{{ r.master.name }}">
             {% endif %}
           </div>
           <div class="rwho">

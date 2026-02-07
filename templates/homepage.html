@@ -9,9 +9,9 @@
   <h2 class="title">Какие услуги мы предлагаем</h2>
 
   <div class="service-list">
-  {% for t in typesofservice|slice:":3" %}
-    <a href="{% url 'service' %}?type={{ t.id }}" class="service">
-      <img src="{{ t.img.url }}" alt="{{ t.name }}">
+  {% for t in servicetype|slice:":3" %}
+    <a href="{% url 'services_list' %}?type={{ t.id }}" class="service">
+      <img src="{{ t.img.url }}" alt="{{ t.title }}">
       <p>{{ t.name }}</p>
     </a>
   {% endfor %}
@@ -23,11 +23,11 @@
   <h2 class="h2">Наши мастера</h2>
 
   <div class="tabs">
-  {% for t in typesofservice %}
-    <a
+  {% for t in servicetype %}
+    {% comment %} <a
       href="?type={{ t.id }}"
       class="tab {% if active_type == t.id %}tab--active{% endif %}"
-    >
+    > {% endcomment %}
       {{ t.name }}
     </a>
   {% endfor %}
@@ -38,8 +38,8 @@
   {% for m in masters %}
     <article class="mcard">
       <div class="mimg">
-        {% if m.img %}
-          <img src="{{ m.img.url }}" alt="{{ m.name }}">
+        {% if m.photo %}
+          <img src="{{ m.photo.url }}" alt="{{ m.name }}">
         {% endif %}
       </div>
 
@@ -47,7 +47,7 @@
         <h3 class="mname">{{ m.name }}</h3>
         <div class="mpos">{{ m.get_position_display }}</div>
         <p class="mdesc">{{ m.description|truncatechars:120 }}</p>
-        <a class="mbtn" href="{% url 'aboutmaster' m.id %}">Подробнее</a>
+        <a class="mbtn" href="{% url 'master_details' m.id %}">Подробнее</a>
       </div>
     </article>
   {% empty %}
@@ -61,23 +61,23 @@
   <h2 class="h2">Фотогалерея работ</h2>
 
   <div class="tabs">
-  {% for t in typesofservice %}
-    <a
+  {% for t in servicetype %}
+    {% comment %} <a
       href="?type={{ t.id }}"
       class="tab {% if active_type == t.id %}tab--active{% endif %}"
-    >
-      {{ t.name }}
+    > {% endcomment %}
+      {{ t.title }}
     </a>
   {% endfor %}
 </div>
 
   <div class="ggrid">
-    {% for g in galleries %}
+    {% for g in gallery %}
       <div class="gcard">
-        {% if g.img %}
-          <img src="{{ g.img.url }}" alt="{{ g.name }}">
+        {% if g.image %}
+          <img src="{{ g.image.url }}" alt="{{ g.title }}">
         {% endif %}
-        <p>{{ g.name }}</p>
+        <p>{{ g.title }}</p>
       </div>
     {% empty %}
       <p style="text-align:center;">Нет работ для этого сервиса</p>
@@ -96,17 +96,17 @@
         <p class="rtext">{{ r.comment|truncatechars:170 }}</p>
 
         <div class="rstars">
-          {% if r.score >= 1 %}★{% else %}☆{% endif %}
-          {% if r.score >= 2 %}★{% else %}☆{% endif %}
-          {% if r.score >= 3 %}★{% else %}☆{% endif %}
-          {% if r.score >= 4 %}★{% else %}☆{% endif %}
-          {% if r.score >= 5 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 1 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 2 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 3 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 4 %}★{% else %}☆{% endif %}
+          {% if r.rating >= 5 %}★{% else %}☆{% endif %}
         </div>
 
         <div class="rbot">
           <div class="rava">
-            {% if r.master.img %}
-              <img src="{{ r.master.img.url }}" alt="{{ r.master.name }}">
+            {% if r.master.photo %}
+              <img src="{{ r.master.photo.url }}" alt="{{ r.master.name }}">
             {% endif %}
           </div>
           <div class="rwho">

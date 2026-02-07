@@ -31,7 +31,7 @@ class MasterAdmin(admin.ModelAdmin):
             "fields": ("name", "position", "experience", "photo")
         }),
         ("Дополнительное", {
-            "fields": ("services", "description", "media", "link"),
+            "fields": ("services", "description"),
             "classes": ("collapse",)
         })
     )
@@ -39,12 +39,12 @@ class MasterAdmin(admin.ModelAdmin):
 
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "service")
+    list_display = ("id", "title", "servicetype")
     list_display_links = ["id",]
-    list_editable = ["title", "service"]
+    list_editable = ["title", "servicetype"]
     fieldsets = (
         ("Подробная информация", {
-            "fields": ("title", "service", "image")
+            "fields": ("title", "servicetype", "image")
         }),
     )
 
@@ -86,6 +86,6 @@ class SocialMediaAdmin(admin.ModelAdmin):
     list_display_links = ["id", "name"]
     fieldsets = (
         ("Сеть", {
-            "fields": ("name",)
+            "fields": ("name", "master", "link")
         }),
     )

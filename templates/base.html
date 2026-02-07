@@ -21,7 +21,7 @@
       Meet Sarah, a visionary hairstylist with a passion for beauty and a heart full of dreams.
     </p>
 
-    <form method="post" action="{% url 'signup' %}" class="modal-form">
+    <form method="post" action="{% url 'appointment_create' %}" class="modal-form">
       {% csrf_token %}
 
       <div class="row">
@@ -49,12 +49,12 @@
   </div>
 </div>
 
-    {% include 'components/navbar.html' %}
+    {% include 'header.html' %}
 
     {% block content %}
 
     {% endblock %}
 
-    {% include 'components/footer.html' %}
+    {% include 'footer.html' %}
   </body>
 </html>

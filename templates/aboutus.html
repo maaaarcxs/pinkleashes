@@ -75,12 +75,12 @@ With time, Serene Beauty's dedicated team grew, offering a range of services fro
   <h2 class="h2">Наши мастера</h2>
 
   <div class="tabs">
-  {% for t in typesofservice %}
+  {% for t in servicetype %}
     <a
       href="?type={{ t.id }}"
       class="tab {% if active_type == t.id %}tab--active{% endif %}"
     >
-      {{ t.name }}
+      {{ t.title }}
     </a>
   {% endfor %}
 </div>
@@ -90,8 +90,8 @@ With time, Serene Beauty's dedicated team grew, offering a range of services fro
   {% for m in masters %}
     <article class="mcard">
       <div class="mimg">
-        {% if m.img %}
-          <img src="{{ m.img.url }}" alt="{{ m.name }}">
+        {% if m.image %}
+          <img src="{{ m.photo.url }}" alt="{{ m.name }}">
         {% endif %}
       </div>
 
@@ -99,7 +99,7 @@ With time, Serene Beauty's dedicated team grew, offering a range of services fro
         <h3 class="mname">{{ m.name }}</h3>
         <div class="mpos">{{ m.get_position_display }}</div>
         <p class="mdesc">{{ m.description|truncatechars:120 }}</p>
-        <a class="mbtn" href="{% url 'aboutmaster' m.id %}">Подробнее</a>
+        <a class="mbtn" href="{% url 'master_details' m.id %}">Подробнее</a>
       </div>
     </article>
   {% empty %}

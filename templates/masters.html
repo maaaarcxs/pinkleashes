@@ -31,7 +31,7 @@
         <h3 class="mname">{{ m.name }}</h3>
         <div class="mpos">{{ m.get_position_display }}</div>
         <p class="mdesc">{{ m.description|truncatechars:120 }}</p>
-        <a class="mbtn" href="{% url 'aboutmaster' m.id %}">Подробнее</a>
+        <a class="mbtn" href="{% url 'master_details' m.id %}">Подробнее</a>
       </div>
     </article>
   {% empty %}
@@ -48,22 +48,18 @@
 
   <div class="tabs">
   {% for t in servicetypes %}
-    <a
-      href="?type={{ t.id }}"
-      class="tab {% if active_type == t.id %}tab--active{% endif %}"
-    >
-      {{ t.name }}
+      {{ t.title }}
     </a>
   {% endfor %}
 </div>
 
   <div class="ggrid">
-    {% for g in galleries %}
+    {% for g in gallery %}
       <div class="gcard">
-        {% if g.img %}
-          <img src="{{ g.img.url }}" alt="{{ g.name }}">
+        {% if g.image %}
+          <img src="{{ g.image.url }}" alt="{{ g.title }}">
         {% endif %}
-        <p>{{ g.name }}</p>
+        <p>{{ g.title }}</p>
       </div>
     {% empty %}
       <p style="text-align:center;">У этого сервиса ещё нет ра*</p>

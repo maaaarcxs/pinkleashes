@@ -51,10 +51,12 @@ class MasterDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         master_id = self.kwargs["id"]
+        master_services = self.kwargs["id"]
         master = get_object_or_404(Master, id=master_id)
         context["master"] = master
         context["reviews"] = Review.objects.filter(master=master_id)
         context["gallery"] = Gallery.objects.filter(service__in=master.services.all())
+        context["service"] = Service.objects.filter(master=master_services)
         return context
     
 

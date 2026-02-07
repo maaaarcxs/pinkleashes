@@ -14,8 +14,8 @@
           {% for s in t.services.all %}
             <article class="svc-card">
               <div class="svc-img">
-                {% if t.img %}
-                  <img src="{{ t.img.url }}" alt="{{ s.title }}">
+                {% if t.image %}
+                  <img src="{{ t.image.url }}" alt="{{ s.title }}">
                 {% else %}
                   <div class="svc-img-empty"></div>
                 {% endif %}
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="svc-actions">
-                  <a class="btn btn--ghost" href="{% url 'service' %}#appointmentModal">Записаться</a>
+                  <a class="btn btn--ghost" href="{% url 'services_list' %}#appointmentModal">Записаться</a>
                 </div>
               </div>
             </article>

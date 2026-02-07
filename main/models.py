@@ -5,6 +5,8 @@ from django_resized import ResizedImageField
 
 
 class ServiceType(models.Model):
+    img = ResizedImageField(size=[800, 600], crop=['middle', 'center'], upload_to='gallery/',
+                            verbose_name='Фото', null=True, blank=True, quality=90)
     title = models.CharField(verbose_name="Название", max_length=85)
     price = models.IntegerField(verbose_name="Стоимость")
 
@@ -30,14 +32,6 @@ class Service(models.Model):
         verbose_name_plural = "Услуги"
 
 
-class SocialMedia(models.Model):
-    name = models.CharField(verbose_name="Название", max_length=70)
-    
-    class Meta:
-        verbose_name = "Социальная сеть"
-        verbose_name_plural = "Социальные сети"
-
-
 class Master(models.Model):
     POSITIONS=(
         ("Master", "Мастер"),
@@ -50,8 +44,6 @@ class Master(models.Model):
     experience = models.IntegerField(verbose_name="Опыт (лет)")
     description = models.TextField(verbose_name="Описание", max_length=1200)
     services = models.ManyToManyField(Service, verbose_name="Услуги", related_name="masters")
-    media = models.ForeignKey(SocialMedia, verbose_name="Соц сети", related_name="smedia", on_delete=models.CASCADE)
-    link = models.URLField(verbose_name="ссылка")
 
     def __str__(self):
         return f'{self.name}, {self.position}, {self.experience}'
@@ -60,15 +52,28 @@ class Master(models.Model):
         verbose_name = "Мастер"
         verbose_name_plural = "Мастера"
 
+
+class SocialMedia(models.Model):
+    name = models.CharField(verbose_name="Название", max_length=70)
+    master = models.ForeignKey(Master, verbose_name="Мастер", related_name="master", on_delete=models.CASCADE)
+    link = models.URLField(verbose_name="Ссылка")
+
+    def __str__(self):
+        return f'{self.name} мастера {self.master}'
+    
+    class Meta:
+        verbose_name = "Социальная сеть"
+        verbose_name_plural = "Социальные сети"
+
     
 class Gallery(models.Model):
     image = ResizedImageField(size=[800, 600], crop=['middle', 'center'], upload_to='gallery/',
                               verbose_name='Фото', null=True, blank=True, quality=90)
     title = models.CharField(verbose_name="Название", max_length=60)
-    service = models.ForeignKey(Service, verbose_name="Работы", related_name="works", on_delete=models.CASCADE)
+    servicetype = models.ForeignKey(ServiceType, verbose_name="Работы", related_name="works", on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.title} {self.service}'
+        return f'{self.title} {self.servicetype}'
     
     class Meta:
         verbose_name = "Галерея работы"
