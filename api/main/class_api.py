@@ -6,7 +6,7 @@ from main.models import ServiceType, Service, Master, Gallery, Review, Appointme
 from .serializers import ServiceTypeSerializers, ServiceSerializers, MasterSerializers, GallerySerializers, ReviewSerializers, AppointmentSerializers
 
 
-class ServiceTypeViewSet(ReadOnlyModelViewSet):
+class ServiceTypeApiViewSet(ReadOnlyModelViewSet):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializers
     filter_backends = [DjangoFilterBackend]
@@ -16,7 +16,7 @@ class ServiceTypeViewSet(ReadOnlyModelViewSet):
         return [AllowAny()]
     
 
-class ServiceViewSet(ReadOnlyModelViewSet):
+class ServiceApiViewSet(ReadOnlyModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializers
     filter_backends = [DjangoFilterBackend]
@@ -25,7 +25,7 @@ class ServiceViewSet(ReadOnlyModelViewSet):
         return [AllowAny()]
     
 
-class MasterViewSet(ReadOnlyModelViewSet):
+class MasterApiViewSet(ReadOnlyModelViewSet):
     queryset = Master.objects.all()
     serializer_class = MasterSerializers
     filter_backends = [DjangoFilterBackend]
@@ -34,21 +34,21 @@ class MasterViewSet(ReadOnlyModelViewSet):
         return [AllowAny()]
     
 
-class GalleryViewSet(ReadOnlyModelViewSet):
+class GalleryApiViewSet(ReadOnlyModelViewSet):
     queryset = Gallery.objects.all()
     serializer_class = GallerySerializers
     filter_backends = [DjangoFilterBackend]
     permission_classes = [AllowAny()]
     
 
-class ReviewViewSet(CreateModelMixin, GenericViewSet):
+class ReviewApiViewSet(CreateModelMixin, GenericViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
     filter_backends = [DjangoFilterBackend]
     permission_classes = [IsAuthenticated]
     
 
-class AppointmentViewSet(GenericViewSet, CreateModelMixin):
+class AppointmentApiViewSet(GenericViewSet, CreateModelMixin):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializers
     filter_backends = [DjangoFilterBackend]
