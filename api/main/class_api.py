@@ -44,12 +44,10 @@ class GalleryApiViewSet(ReadOnlyModelViewSet):
 class ReviewApiViewSet(CreateModelMixin, GenericViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializers
-    filter_backends = [DjangoFilterBackend]
     permission_classes = [IsAuthenticated]
     
 
 class AppointmentApiViewSet(GenericViewSet, CreateModelMixin):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializers
-    filter_backends = [DjangoFilterBackend]
     permission_classes = [IsAuthenticated]
