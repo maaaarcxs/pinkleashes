@@ -10,28 +10,21 @@ class ServiceTypeApiViewSet(ReadOnlyModelViewSet):
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializers
     filter_backends = [DjangoFilterBackend]
-
-
-    def get_permissions(self):
-        return [AllowAny()]
+    permission_classes = [AllowAny()]
     
 
 class ServiceApiViewSet(ReadOnlyModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializers
     filter_backends = [DjangoFilterBackend]
-
-    def get_permissions(self):
-        return [AllowAny()]
+    permission_classes = [AllowAny()]
     
 
 class MasterApiViewSet(ReadOnlyModelViewSet):
     queryset = Master.objects.all()
     serializer_class = MasterSerializers
     filter_backends = [DjangoFilterBackend]
-
-    def get_permissions(self):
-        return [AllowAny()]
+    permission_classes = [AllowAny()]
     
 
 class GalleryApiViewSet(ReadOnlyModelViewSet):
